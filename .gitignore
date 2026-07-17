@@ -1,0 +1,23 @@
+# Rust
+backend/target/
+Cargo.lock
+
+# Node / TypeScript
+frontend/node_modules/
+frontend/.next/
+frontend/dist/
+frontend/.turbo/
+
+# Env files
+.env
+backend/.env
+frontend/.env
+frontend/.env.local
+
+# Docker
+pgdata/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store

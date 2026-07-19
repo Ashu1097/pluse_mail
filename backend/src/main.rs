@@ -1,13 +1,12 @@
 mod databases;
+use tokio;
 
-fn main() {
+#[tokio::main]
+async fn main() -> Result<(), sqlx::Error> {
     dotenvy::dotenv().ok();
 
     let config = databases::config::load_env().expect("failed to load env");
-
-    println!("{}", config.pghost);
-    println!("{}", config.pgport);
-    println!("{}", config.pgusername);
-    println!("{}", config.pgpassword);
-    println!("{}", config.pgdatabase);
+    let connection = databases::postgress::get_postgres_session(&config).await?;
+    println!("{:?}", connection);
+    Ok(())
 }

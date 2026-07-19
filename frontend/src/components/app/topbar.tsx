@@ -2,6 +2,7 @@
 
 import { Search, Menu, RefreshCw } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Topbar({ onMenuClick }: { onMenuClick?: () => void }) {
   return (
@@ -14,7 +15,7 @@ export function Topbar({ onMenuClick }: { onMenuClick?: () => void }) {
         <Menu size={18} />
       </button>
 
-      <div className="flex-1 max-w-[420px] flex items-center gap-2 rounded-md bg-surface-1 border border-hairline px-3 py-1.5">
+      <div className="flex-1 max-w-[420px] flex items-center gap-2 rounded-md bg-surface-2 border border-hairline px-3 py-1.5">
         <Search size={14} className="text-ink-tertiary shrink-0" />
         <input
           placeholder="Search your inbox in plain language…"
@@ -32,6 +33,7 @@ export function Topbar({ onMenuClick }: { onMenuClick?: () => void }) {
         >
           <RefreshCw size={15} />
         </button>
+        <ThemeToggle />
       </div>
     </div>
   );

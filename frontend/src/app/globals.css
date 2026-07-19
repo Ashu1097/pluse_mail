@@ -78,6 +78,71 @@
   --font-mono: Inter, -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
+/* Dark mode — Notion's own dark theme: near-black canvas, dark-gray
+   surfaces, the same blue accent brightened slightly for contrast. Sticker
+   colors that read too dark against a dark canvas (deep purple, brown) get
+   a lighter stand-in so category dots stay legible. */
+.dark {
+  --color-primary: #3b9eff;
+  --color-on-primary: #ffffff;
+  --color-primary-hover: #63b3ff;
+  --color-primary-focus: #3b9eff;
+  --color-brand-secure: #4fc3be;
+
+  --color-secondary: #2b3a8f;
+  --color-on-secondary: #ffffff;
+
+  --color-ink: rgba(255, 255, 255, 0.92);
+  --color-ink-muted: rgba(255, 255, 255, 0.72);
+  --color-ink-subtle: rgba(255, 255, 255, 0.52);
+  --color-ink-tertiary: rgba(255, 255, 255, 0.36);
+
+  --color-canvas: #191919;
+  --color-surface-1: #202020;
+  --color-surface-2: #2a2a2a;
+  --color-surface-3: #2a2a2a;
+  --color-surface-4: #303030;
+
+  --color-hairline: rgba(255, 255, 255, 0.09);
+  --color-hairline-strong: rgba(255, 255, 255, 0.16);
+  --color-hairline-tertiary: rgba(255, 255, 255, 0.05);
+
+  --color-inverse-canvas: #ffffff;
+  --color-inverse-surface-1: #ececec;
+  --color-inverse-surface-2: #e0e0e0;
+  --color-inverse-ink: #000000;
+
+  --color-semantic-success: #4cc264;
+  --color-semantic-danger: #ff6369;
+  --color-semantic-overlay: rgba(0, 0, 0, 0.72);
+
+  --color-tag-work: #62aef0;
+  --color-tag-college: #d6b6f6;
+  --color-tag-personal: #4cc264;
+  --color-tag-finance: #ff8a3d;
+  --color-tag-shopping: #ff64c8;
+  --color-tag-travel: #45bdb8;
+  --color-tag-security: #ff6369;
+  --color-tag-bills: #b98a5e;
+  --color-tag-promotions: #9a958f;
+  --color-tag-interviews: #b48cf0;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+.dark .shadow-elevation-1 {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.28);
+}
+.dark .shadow-elevation-2 {
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.45),
+    0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
 @theme inline {
   --color-primary: var(--color-primary);
   --color-on-primary: var(--color-on-primary);

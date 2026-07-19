@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import {
   Mail,
   Sparkles,
@@ -8,18 +9,32 @@ import {
   ShieldCheck,
   Trash2,
   Plus,
+  Monitor,
 } from "lucide-react";
 import { AppShell } from "@/components/app/app-shell";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 export default function SettingsPage() {
   const [dailySummary, setDailySummary] = useState(true);
   const [replyNudges, setReplyNudges] = useState(true);
   const [meetingReminders, setMeetingReminders] = useState(false);
   const [multiProvider, setMultiProvider] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+    return () => {};
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <AppShell>
@@ -30,6 +45,33 @@ export default function SettingsPage() {
         </div>
 
         <div className="flex flex-col gap-5">
+          {/* Appearance */}
+          <Card level={1} radius="lg" className="p-6">
+            <div className="flex items-center gap-2 mb-5">
+              <Monitor size={15} className="text-ink-subtle" />
+              <h2 className="text-card-title text-ink">Appearance</h2>
+            </div>
+            <p className="text-body-sm text-ink-subtle mb-4">
+              Choose how PlusEmail looks on this device.
+            </p>
+            <div className="flex gap-2">
+              {(["light", "dark", "system"] as const).map((option) => (
+                <button
+                  key={option}
+                  onClick={() => setTheme(option)}
+                  className={cn(
+                    "flex-1 rounded-md border px-3 py-2 text-body-sm capitalize transition-colors",
+                    mounted && theme === option
+                      ? "border-primary text-primary bg-primary/10"
+                      : "border-hairline text-ink-subtle hover:text-ink hover:border-hairline-strong"
+                  )}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          </Card>
+
           {/* Connected accounts */}
           <Card level={1} radius="lg" className="p-6">
             <div className="flex items-center gap-2 mb-5">

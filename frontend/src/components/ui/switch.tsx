@@ -13,19 +13,20 @@ export function Switch({
 }) {
   return (
     <button
+      type="button"
       role="switch"
       aria-checked={checked}
       aria-label={label}
       onClick={() => onChange(!checked)}
       className={cn(
-        "relative h-5 w-9 rounded-pill transition-colors shrink-0",
-        checked ? "bg-primary" : "bg-surface-3 border border-hairline-strong"
+        "inline-flex h-5 w-9 shrink-0 items-center rounded-pill border-0 p-0.5 outline-none transition-colors",
+        checked ? "bg-primary" : "bg-hairline-strong"
       )}
     >
       <span
         className={cn(
-          "absolute top-0.5 h-4 w-4 rounded-full bg-surface-1 shadow-elevation-1 transition-transform",
-          checked ? "translate-x-[18px]" : "translate-x-0.5"
+          "h-4 w-4 rounded-full bg-white border border-hairline shadow-elevation-1 transition-transform duration-150",
+          checked ? "translate-x-4" : "translate-x-0"
         )}
       />
     </button>

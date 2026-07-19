@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/marketing/logo";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
   { href: "/#features", label: "Features" },
@@ -37,6 +38,7 @@ export function TopNav() {
         </nav>
 
         <div className="hidden md:flex items-center gap-2">
+          <ThemeToggle />
           <Link href="/login">
             <Button variant="secondary" size="sm">
               Sign in
@@ -49,13 +51,16 @@ export function TopNav() {
           </Link>
         </div>
 
-        <button
-          className="md:hidden text-ink"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <div className="md:hidden flex items-center gap-3">
+          <ThemeToggle />
+          <button
+            className="text-ink"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
       {open && (

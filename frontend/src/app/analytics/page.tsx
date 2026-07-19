@@ -77,24 +77,24 @@ export default function AnalyticsPage() {
                 <AreaChart data={emailsPerDay}>
                   <defs>
                     <linearGradient id="emailsFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#0075de" stopOpacity={0.35} />
-                      <stop offset="100%" stopColor="#0075de" stopOpacity={0} />
+                      <stop offset="0%" stopColor="var(--color-primary)" stopOpacity={0.35} />
+                      <stop offset="100%" stopColor="var(--color-primary)" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid
                     strokeDasharray="3 3"
-                    stroke="#e6e6e6"
+                    stroke="var(--color-hairline)"
                     vertical={false}
                   />
                   <XAxis
                     dataKey="day"
-                    tick={{ fill: "#a39e98", fontSize: 11 }}
-                    axisLine={{ stroke: "#e6e6e6" }}
+                    tick={{ fill: "var(--color-ink-tertiary)", fontSize: 11 }}
+                    axisLine={{ stroke: "var(--color-hairline)" }}
                     tickLine={false}
                     interval={2}
                   />
                   <YAxis
-                    tick={{ fill: "#a39e98", fontSize: 11 }}
+                    tick={{ fill: "var(--color-ink-tertiary)", fontSize: 11 }}
                     axisLine={false}
                     tickLine={false}
                     width={28}
@@ -103,7 +103,7 @@ export default function AnalyticsPage() {
                   <Area
                     type="monotone"
                     dataKey="count"
-                    stroke="#0075de"
+                    stroke="var(--color-primary)"
                     strokeWidth={2}
                     fill="url(#emailsFill)"
                   />
@@ -123,17 +123,17 @@ export default function AnalyticsPage() {
                 <LineChart data={weeklyTrend}>
                   <CartesianGrid
                     strokeDasharray="3 3"
-                    stroke="#e6e6e6"
+                    stroke="var(--color-hairline)"
                     vertical={false}
                   />
                   <XAxis
                     dataKey="week"
-                    tick={{ fill: "#a39e98", fontSize: 11 }}
-                    axisLine={{ stroke: "#e6e6e6" }}
+                    tick={{ fill: "var(--color-ink-tertiary)", fontSize: 11 }}
+                    axisLine={{ stroke: "var(--color-hairline)" }}
                     tickLine={false}
                   />
                   <YAxis
-                    tick={{ fill: "#a39e98", fontSize: 11 }}
+                    tick={{ fill: "var(--color-ink-tertiary)", fontSize: 11 }}
                     axisLine={false}
                     tickLine={false}
                     width={28}
@@ -142,9 +142,9 @@ export default function AnalyticsPage() {
                   <Line
                     type="monotone"
                     dataKey="emails"
-                    stroke="#0075de"
+                    stroke="var(--color-primary)"
                     strokeWidth={2}
-                    dot={{ r: 3, fill: "#0075de" }}
+                    dot={{ r: 3, fill: "var(--color-primary)" }}
                   />
                 </LineChart>
               </ResponsiveContainer>

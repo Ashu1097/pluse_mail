@@ -1,396 +1,266 @@
 import Link from "next/link";
 import {
+  Mail,
+  Sparkles,
   Search,
   MessageSquareText,
-  FileClock,
-  Tags,
-  ListChecks,
-  BarChart3,
   ShieldCheck,
-  Mail,
-  ScanText,
-  Sparkles,
-  Database,
+  BarChart3,
+  ArrowRight,
+  Inbox,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { TopNav } from "@/components/marketing/top-nav";
-import { Footer } from "@/components/marketing/footer";
-import { InboxMockup } from "@/components/marketing/inbox-mockup";
-import { SummaryMockup } from "@/components/marketing/summary-mockup";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
-const features = [
+const FEATURES = [
   {
     icon: MessageSquareText,
-    title: "Ask your inbox",
-    body: "\u201cWhen is my interview?\u201d \u201cShow me invoices from Amazon.\u201d Get a direct answer, not a search results page.",
+    title: "Chat with your inbox",
+    body: "Ask “when is my interview” or “show me invoices from Amazon” and get a straight answer, sourced from the actual emails.",
   },
   {
     icon: Search,
-    title: "Smart search",
-    body: "Search means, not keywords. \u201cBills due this week\u201d finds them even if that phrase never appears.",
+    title: "Search in plain language",
+    body: "No more guessing keywords. Search the way you’d ask a person — “bills due this week” just works.",
   },
   {
-    icon: FileClock,
-    title: "Daily summary",
-    body: "One digest every morning: what's new, what's urgent, what's waiting on a reply.",
-  },
-  {
-    icon: Tags,
-    title: "Automatic categories",
-    body: "Work, college, finance, travel, interviews \u2014 every email sorted the moment it arrives.",
-  },
-  {
-    icon: ListChecks,
-    title: "Action items, extracted",
-    body: "Deadlines, tasks, and meeting details pulled out of the email body automatically.",
+    icon: Sparkles,
+    title: "Every email, distilled",
+    body: "Senders, dates, deadlines, action items and meetings are pulled out automatically the moment mail arrives.",
   },
   {
     icon: BarChart3,
-    title: "Inbox analytics",
-    body: "Response times, busiest senders, and category trends, tracked week over week.",
+    title: "See your inbox's shape",
+    body: "Response times, busiest contacts, and category trends — the patterns you'd never notice by scrolling.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Google OAuth, always",
+    body: "MailMind never sees or stores your password. Disconnect access from your Google account at any time.",
+  },
+  {
+    icon: Inbox,
+    title: "Daily inbox report",
+    body: "One digest every morning: what's new, what needs a reply, and what's due — before you open a single email.",
   },
 ];
 
-const pipeline = [
-  { step: "01", label: "Fetch", body: "Pulls new mail through the Gmail API on a secure, incremental sync." },
-  { step: "02", label: "Clean", body: "Strips HTML and tracking cruft down to plain, readable text." },
-  { step: "03", label: "Embed", body: "Generates a vector embedding so meaning, not just keywords, is searchable." },
-  { step: "04", label: "Summarize", body: "An LLM writes a short summary and pulls out dates, senders, and links." },
-  { step: "05", label: "Extract", body: "Action items, deadlines, and meeting details are structured and stored." },
-  { step: "06", label: "Serve", body: "Everything lands in your dashboard, chat, and search \u2014 instantly." },
-];
-
-const plans = [
+const STEPS = [
   {
-    name: "Personal",
-    price: "$0",
-    period: "/month",
-    tagline: "One Gmail account, the essentials.",
-    features: [
-      "1 Gmail account",
-      "Daily AI summary",
-      "Smart search",
-      "50 AI chat questions / month",
-    ],
-    featured: false,
-    cta: "Start free",
+    n: "Connect",
+    body: "Sign in with Google. MailMind syncs your inbox securely in the background.",
   },
   {
-    name: "Pro",
-    price: "$12",
-    period: "/month",
-    tagline: "For a full inbox and a busy week.",
-    features: [
-      "3 Gmail accounts",
-      "Unlimited AI chat",
-      "Action items & deadlines",
-      "Inbox analytics",
-      "Priority sync",
-    ],
-    featured: true,
-    cta: "Start 14-day trial",
+    n: "Distill",
+    body: "Every email is summarized and indexed — senders, dates, tasks, meetings, links.",
   },
   {
-    name: "Team",
-    price: "$29",
-    period: "/user/month",
-    tagline: "Shared inboxes, shared context.",
-    features: [
-      "Unlimited accounts",
-      "Shared chat history",
-      "Admin analytics",
-      "SSO & audit log",
-      "Dedicated support",
-    ],
-    featured: false,
-    cta: "Contact sales",
+    n: "Ask",
+    body: "Search or chat in plain language. Get answers, not a wall of unread mail.",
   },
 ];
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <>
-      <TopNav />
-      <main className="bg-canvas">
-        {/* Hero — the one dark "night" island per the Notion spec */}
-        <section className="relative bg-secondary overflow-hidden">
-          <div className="mx-auto max-w-[1280px] px-6 pt-20 pb-28 md:pt-28 md:pb-36">
-            <div className="max-w-[720px]">
-              <p
-                className="text-eyebrow mb-5"
-                style={{ color: "var(--color-tag-work)" }}
-              >
-                AI email assistant
-              </p>
-              <h1 className="text-display-xl text-on-secondary">
-                Your inbox, understood.
-              </h1>
-              <p className="text-body-lg text-on-secondary/75 mt-6 max-w-[560px]">
-                PlusEmail reads every email that hits your Gmail, summarizes it,
-                and lets you ask it questions in plain language — instead
-                of you reading each one yourself.
-              </p>
-              <div className="flex flex-wrap items-center gap-3 mt-8">
-                <Link href="/login">
-                  <Button size="md">Connect Gmail</Button>
-                </Link>
-                <Link href="/chat">
-                  <Button variant="secondary" size="md">
-                    See AI chat in action
-                  </Button>
-                </Link>
+    <div className="min-h-screen bg-paper">
+      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
+        <div className="flex items-center gap-2">
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-ink text-paper">
+            <Mail size={15} />
+          </span>
+          <span className="font-display text-[15px] font-semibold tracking-tight">
+            MailMind
+          </span>
+        </div>
+        <nav className="flex items-center gap-4">
+          <ThemeToggle />
+          <Link
+            href="/login"
+            className="hidden text-[13.5px] font-medium text-ink-2 hover:text-ink sm:block"
+          >
+            Sign in
+          </Link>
+          <Link
+            href="/login"
+            className="rounded-full bg-ink px-4 py-2 text-[13.5px] font-medium text-paper hover:bg-ink/85"
+          >
+            Get started
+          </Link>
+        </nav>
+      </header>
+
+      {/* Hero */}
+      <section className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 px-6 pb-20 pt-10 lg:grid-cols-[1.05fr_1fr] lg:pt-16">
+        <div>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1 text-[12px] font-medium text-ink-2">
+            <Sparkles size={12} className="text-violet-dim" />
+            Now reading Gmail in natural language
+          </span>
+          <h1 className="mt-5 font-display text-[44px] font-semibold leading-[1.08] tracking-tight text-ink sm:text-[56px]">
+            Your inbox,
+            <br />
+            distilled to what
+            <br />
+            matters.
+          </h1>
+          <p className="mt-5 max-w-md text-[15.5px] leading-relaxed text-ink-2">
+            MailMind reads every email so you don&apos;t have to — surfacing
+            deadlines, meetings and tasks, and letting you ask your inbox
+            questions in plain English.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link
+              href="/login"
+              className="flex items-center gap-1.5 rounded-full bg-ink px-5 py-3 text-[14px] font-medium text-paper hover:bg-ink/85"
+            >
+              Connect Gmail <ArrowRight size={15} />
+            </Link>
+            <Link
+              href="/dashboard"
+              className="rounded-full border border-line bg-surface px-5 py-3 text-[14px] font-medium text-ink hover:border-ink/30"
+            >
+              View live demo
+            </Link>
+          </div>
+          <p className="mt-3 text-[12px] text-ink-3">
+            Google OAuth only. Your password never touches our servers.
+          </p>
+        </div>
+
+        {/* Signature distillation visual */}
+        <div className="relative">
+          <div className="absolute -inset-6 -z-10 rounded-[32px] bg-violet-soft/40 blur-2xl" />
+          <div className="rounded-2xl border border-line bg-surface p-5 shadow-[0_1px_0_rgba(20,23,31,0.03)]">
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-wide text-ink-3">
+              21 new emails
+            </p>
+            <div className="space-y-1.5 opacity-70">
+              {[
+                "Interview confirmed — Thursday 10 AM",
+                "Your invoice for Order #402-8817",
+                "Assignment 3 posted — due Monday",
+                "Credit card bill generated",
+                "50% off your next 3 orders",
+              ].map((t, i) => (
+                <div
+                  key={t}
+                  className="flex items-center gap-2 rounded-lg bg-paper px-3 py-2"
+                  style={{ opacity: 1 - i * 0.14 }}
+                >
+                  <span className="h-1 w-1 shrink-0 rounded-full bg-ink-3" />
+                  <span className="truncate text-[12px] text-ink-2">{t}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="my-4 flex items-center justify-center">
+              <div className="h-8 w-px signal-bar" style={{ writingMode: "vertical-lr" }} />
+            </div>
+
+            <div className="rounded-xl bg-dark p-4">
+              <div className="flex items-center gap-2">
+                <Sparkles size={13} className="text-violet" />
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-white/60">
+                  Today, distilled
+                </p>
               </div>
-              <div className="flex items-center gap-2 mt-6">
-                <ShieldCheck size={14} className="text-on-secondary/60" />
-                <span className="text-caption text-on-secondary/60">
-                  OAuth only — PlusEmail never sees or stores your Gmail
-                  password.
+              <p className="mt-2 text-[13.5px] leading-relaxed text-white">
+                One interview Thursday at 10 AM, an assignment due Monday,
+                and a card bill due the 28th. Everything else can wait.
+              </p>
+              <div className="mt-3 flex items-center gap-2">
+                <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/15">
+                  <div className="signal-bar h-full w-[92%] rounded-full" />
+                </div>
+                <span className="font-mono text-[10.5px] text-white/60">
+                  92% signal
                 </span>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="mx-auto max-w-[1280px] px-6 pb-24">
-          <Card
-            level={2}
-            radius="xl"
-            className="-mt-20 md:-mt-28 relative z-10 overflow-hidden"
-          >
-            <InboxMockup />
-          </Card>
-        </section>
-
-        {/* Logo marquee */}
-        <section className="border-y border-hairline bg-canvas py-10">
-          <div className="mx-auto max-w-[1280px] px-6">
-            <p className="text-caption text-ink-tertiary text-center mb-6">
-              Reads mail from every Gmail-connected corner of your life
-            </p>
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
-              {["Gmail", "Google Workspace", "Greenhouse", "Stripe", "Delta", "Notion"].map(
-                (name) => (
-                  <div
-                    key={name}
-                    className="rounded-xs bg-canvas px-4 py-3 text-center"
-                  >
-                    <span className="text-caption text-ink-subtle">
-                      {name}
-                    </span>
-                  </div>
-                )
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* Features */}
-        <section id="features" className="mx-auto max-w-[1280px] px-6 py-24">
-          <div className="max-w-[560px] mb-14">
-            <p className="text-eyebrow text-primary mb-4">Features</p>
-            <h2 className="text-display-md text-ink">
-              Everything after “Connect Gmail.”
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {features.map((f) => (
-              <Card key={f.title} level={1} radius="lg" className="p-6">
-                <div className="h-9 w-9 rounded-md bg-surface-2 border border-hairline flex items-center justify-center mb-5">
-                  <f.icon size={16} className="text-primary" />
-                </div>
-                <h3 className="text-card-title text-ink mb-2">{f.title}</h3>
-                <p className="text-body-sm text-ink-subtle">{f.body}</p>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Pipeline */}
-        <section className="mx-auto max-w-[1280px] px-6 py-24">
-          <div className="max-w-[560px] mb-14">
-            <p className="text-eyebrow text-primary mb-4">
-              How it processes mail
-            </p>
-            <h2 className="text-display-md text-ink">
-              Every email moves through the same six-step pipeline.
-            </h2>
-            <p className="text-body text-ink-subtle mt-4">
-              In that order, every time — from raw Gmail message to
-              something you can ask a question about.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-hairline rounded-lg overflow-hidden border border-hairline">
-            {pipeline.map((p) => (
-              <div key={p.step} className="bg-surface-1 p-6">
-                <span className="text-mono text-ink-tertiary">{p.step}</span>
-                <h3 className="text-card-title text-ink mt-3 mb-2">
-                  {p.label}
-                </h3>
-                <p className="text-body-sm text-ink-subtle">{p.body}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Second product shot: daily summary */}
-        <section className="mx-auto max-w-[1280px] px-6 py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-            <div>
-              <p className="text-eyebrow text-primary mb-4">Daily summary</p>
-              <h2 className="text-display-md text-ink mb-5">
-                One digest, every morning, before you open your inbox.
-              </h2>
-              <p className="text-body text-ink-subtle mb-8 max-w-[440px]">
-                PlusEmail counts what came in overnight, flags what&apos;s urgent,
-                and lists what&apos;s still waiting on a reply — generated on
-                a 24-hour cycle so it&apos;s ready before your first coffee.
-              </p>
-              <ul className="flex flex-col gap-3">
-                {[
-                  "Category breakdown of everything new",
-                  "Ranked list of top priorities",
-                  "Pending replies you haven't sent yet",
-                  "Deadlines coming up this week",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-                    <span className="text-body-sm text-ink-muted">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <Card level={1} radius="xl" edge className="overflow-hidden">
-              <SummaryMockup />
-            </Card>
-          </div>
-        </section>
-
-        {/* Testimonial */}
-        <section className="mx-auto max-w-[1280px] px-6 py-24">
-          <Card level={1} radius="lg" className="p-8 md:p-12 max-w-[820px] mx-auto">
-            <p className="text-body-lg text-ink">
-              I stopped opening my inbox in the morning. I ask PlusEmail what
-              needs a reply and it just tells me — with the actual email
-              linked right there.
-            </p>
-            <div className="flex items-center gap-3 mt-8">
-              <div className="h-10 w-10 rounded-full bg-surface-2 border border-hairline flex items-center justify-center">
-                <Mail size={16} className="text-ink-subtle" />
-              </div>
-              <div>
-                <p className="text-body-sm text-ink">Early access user</p>
-                <p className="text-caption text-ink-tertiary">
-                  Graduate student & part-time contractor
+      {/* How it works */}
+      <section className="border-y border-line bg-surface">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <p className="text-[12px] font-semibold uppercase tracking-wide text-ink-3">
+            How it works
+          </p>
+          <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-3">
+            {STEPS.map((s, i) => (
+              <div key={s.n}>
+                <p className="font-display text-3xl font-semibold text-violet-soft">
+                  <span className="text-violet">{s.n}</span>
                 </p>
-              </div>
-            </div>
-          </Card>
-        </section>
-
-        {/* Pricing */}
-        <section id="pricing" className="mx-auto max-w-[1280px] px-6 py-24">
-          <div className="max-w-[560px] mb-14 mx-auto text-center">
-            <p className="text-eyebrow text-primary mb-4">Pricing</p>
-            <h2 className="text-display-md text-ink">
-              Start free. Upgrade when your inbox does.
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {plans.map((plan) => (
-              <Card
-                key={plan.name}
-                level={1}
-                radius="lg"
-                className={
-                  "p-6 flex flex-col " +
-                  (plan.featured ? "bg-canvas" : "")
-                }
-              >
-                {plan.featured && (
-                  <Badge className="self-start mb-4 border-transparent bg-primary/10 text-primary">
-                    Most popular
-                  </Badge>
+                <p className="mt-2 text-[14px] leading-relaxed text-ink-2">
+                  {s.body}
+                </p>
+                {i < STEPS.length - 1 && (
+                  <div className="mt-6 hidden h-px bg-line sm:block" />
                 )}
-                <h3 className="text-headline text-ink">{plan.name}</h3>
-                <p className="text-body-sm text-ink-subtle mt-1.5">
-                  {plan.tagline}
-                </p>
-                <div className="flex items-baseline gap-1 mt-6">
-                  <span className="text-display-md text-ink">
-                    {plan.price}
-                  </span>
-                  <span className="text-body-sm text-ink-tertiary">
-                    {plan.period}
-                  </span>
-                </div>
-                <ul className="flex flex-col gap-2.5 mt-6 mb-8 flex-1">
-                  {plan.features.map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-center gap-2.5 text-body-sm text-ink-muted"
-                    >
-                      <span className="h-1 w-1 rounded-full bg-ink-tertiary shrink-0" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Link href={plan.name === "Team" ? "/contact/sales" : "/login"}>
-                  <Button variant="utility" className="w-full">
-                    {plan.cta}
-                  </Button>
-                </Link>
-              </Card>
+              </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Security strip */}
-        <section id="security" className="mx-auto max-w-[1280px] px-6 pb-24">
-          <Card level={1} radius="lg" className="p-8 flex flex-col md:flex-row gap-8 md:items-center">
-            <div className="flex items-center gap-3 md:w-[280px] shrink-0">
-              <div className="h-10 w-10 rounded-md bg-surface-2 border border-hairline flex items-center justify-center">
-                <ShieldCheck size={18} className="text-brand-secure" />
+      {/* Features */}
+      <section className="mx-auto max-w-6xl px-6 py-20">
+        <h2 className="font-display text-3xl font-semibold tracking-tight text-ink">
+          Built for people who get too much email.
+        </h2>
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURES.map((f) => {
+            const Icon = f.icon;
+            return (
+              <div
+                key={f.title}
+                className="rounded-2xl border border-line bg-surface p-6"
+              >
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-violet-soft text-violet-dim">
+                  <Icon size={16} />
+                </span>
+                <p className="mt-4 text-[14.5px] font-semibold text-ink">
+                  {f.title}
+                </p>
+                <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink-2">
+                  {f.body}
+                </p>
               </div>
-              <h3 className="text-card-title text-ink">PlusEmail Security</h3>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1">
-              {[
-                { icon: ScanText, text: "OAuth 2.0 only \u2014 your Gmail password never touches our servers." },
-                { icon: Database, text: "Structured data is encrypted at rest in isolated per-user storage." },
-                { icon: Sparkles, text: "You can disconnect and delete all synced data at any time." },
-              ].map((item) => (
-                <div key={item.text} className="flex gap-3">
-                  <item.icon size={16} className="text-ink-tertiary shrink-0 mt-0.5" />
-                  <p className="text-body-sm text-ink-subtle">{item.text}</p>
-                </div>
-              ))}
-            </div>
-          </Card>
-        </section>
+            );
+          })}
+        </div>
+      </section>
 
-        {/* CTA banner */}
-        <section className="mx-auto max-w-[1280px] px-6 pb-24">
-          <Card level={1} radius="lg" className="p-12 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-            <div>
-              <h2 className="text-headline text-ink mb-2">
-                Connect your inbox in under a minute.
-              </h2>
-              <p className="text-body-sm text-ink-subtle">
-                No password entry. No setup wizard. Sign in with Google and
-                your first daily summary arrives tomorrow morning.
-              </p>
-            </div>
-            <Link href="/login" className="shrink-0">
-              <Button size="md">Connect Gmail</Button>
-            </Link>
-          </Card>
-        </section>
-      </main>
-      <Footer />
-    </>
+      {/* CTA */}
+      <section className="mx-auto max-w-6xl px-6 pb-20">
+        <div className="rounded-3xl bg-dark px-8 py-14 text-center">
+          <h3 className="font-display text-3xl font-semibold text-white">
+            Stop reading. Start asking.
+          </h3>
+          <p className="mx-auto mt-3 max-w-md text-[14px] text-white/70">
+            Connect your Gmail and let MailMind turn today&apos;s inbox into
+            three sentences you actually need.
+          </p>
+          <Link
+            href="/login"
+            className="mt-7 inline-flex items-center gap-1.5 rounded-full bg-white px-5 py-3 text-[14px] font-medium text-[#14171F] hover:bg-white/90"
+          >
+            Connect Gmail <ArrowRight size={15} />
+          </Link>
+        </div>
+      </section>
+
+      <footer className="border-t border-line px-6 py-8">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 text-[12px] text-ink-3 sm:flex-row">
+          <span>© 2026 MailMind. Not affiliated with Google.</span>
+          <div className="flex gap-5">
+            <span>Privacy</span>
+            <span>Terms</span>
+            <span>Contact</span>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }

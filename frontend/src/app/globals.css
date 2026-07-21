@@ -1,350 +1,82 @@
 @import "tailwindcss";
 
-:root {
-  /* Brand & accent */
-  --color-primary: #0075de;
-  --color-on-primary: #ffffff;
-  --color-primary-hover: #005bab;
-  --color-primary-focus: #0075de;
-  --color-brand-secure: #2a9d99;
+@theme {
+  --color-paper: #F6F5F1;
+  --color-paper-2: #EFEDE7;
+  --color-surface: #FFFFFF;
+  --color-ink: #14171F;
+  --color-ink-2: #5B5D66;
+  --color-ink-3: #8B8C93;
+  --color-line: #E3E0D8;
 
-  /* Deep indigo — reserved for the single dark "night" hero band */
-  --color-secondary: #213183;
-  --color-on-secondary: #ffffff;
+  --color-amber: #C2811F;
+  --color-amber-soft: #F3E3C6;
+  --color-amber-dim: #8F6420;
 
-  /* Ink */
-  --color-ink: rgba(0, 0, 0, 0.92);
-  --color-ink-muted: #31302e;
-  --color-ink-subtle: #615d59;
-  --color-ink-tertiary: #a39e98;
+  --color-violet: #6753E0;
+  --color-violet-soft: #E7E2FB;
+  --color-violet-dim: #4C3BB0;
 
-  /* Surface ladder — Notion has no dark-mode depth stack, so levels 2-4
-     reuse the warm paper tone; depth comes from hairlines/shadow, not tone. */
-  --color-canvas: #f6f5f4;
-  --color-surface-1: #ffffff;
-  --color-surface-2: #f6f5f4;
-  --color-surface-3: #f6f5f4;
-  --color-surface-4: #efeeec;
+  --color-green: #2C8F63;
+  --color-green-soft: #DCEEE3;
 
-  /* Hairlines */
-  --color-hairline: #e6e6e6;
-  --color-hairline-strong: #d6d3d0;
-  --color-hairline-tertiary: #efeeed;
+  --color-security-soft: #F7DCDC;
+  --color-security-dim: #A23A3A;
 
-  /* Inverse (dark chips against the light canvas) */
-  --color-inverse-canvas: #000000;
-  --color-inverse-surface-1: #1a1a1a;
-  --color-inverse-surface-2: #262626;
-  --color-inverse-ink: #ffffff;
+  /* Fixed "always dark" chrome for decorative panels that shouldn't
+     flip with the theme (e.g. the landing page mockups). */
+  --color-dark: #14171F;
+  --color-darker: #0E1016;
+  --color-darkline: #262A35;
 
-  /* Semantic */
-  --color-semantic-success: #1aae39;
-  --color-semantic-danger: #e5484d;
-  --color-semantic-overlay: rgba(0, 0, 0, 0.5);
-
-  /* Sticker/category accents — decorative only, never structural */
-  --color-tag-work: #62aef0;
-  --color-tag-college: #d6b6f6;
-  --color-tag-personal: #1aae39;
-  --color-tag-finance: #dd5b00;
-  --color-tag-shopping: #ff64c8;
-  --color-tag-travel: #2a9d99;
-  --color-tag-security: #e5484d;
-  --color-tag-bills: #523410;
-  --color-tag-promotions: #a39e98;
-  --color-tag-interviews: #391c57;
-
-  /* Spacing */
-  --space-xxs: 4px;
-  --space-xs: 8px;
-  --space-sm: 12px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 28px;
-  --space-xxl: 32px;
-  --space-section: 96px;
-
-  /* Radius */
-  --radius-xs: 4px;
-  --radius-sm: 5px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-xxl: 16px;
-  --radius-pill: 9999px;
-
-  --font-display: Inter, -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
-  --font-text: Inter, -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
-  --font-mono: Inter, -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
-}
-
-/* Dark mode — Notion's own dark theme: near-black canvas, dark-gray
-   surfaces, the same blue accent brightened slightly for contrast. Sticker
-   colors that read too dark against a dark canvas (deep purple, brown) get
-   a lighter stand-in so category dots stay legible. */
-.dark {
-  --color-primary: #3b9eff;
-  --color-on-primary: #ffffff;
-  --color-primary-hover: #63b3ff;
-  --color-primary-focus: #3b9eff;
-  --color-brand-secure: #4fc3be;
-
-  --color-secondary: #2b3a8f;
-  --color-on-secondary: #ffffff;
-
-  --color-ink: rgba(255, 255, 255, 0.92);
-  --color-ink-muted: rgba(255, 255, 255, 0.72);
-  --color-ink-subtle: rgba(255, 255, 255, 0.52);
-  --color-ink-tertiary: rgba(255, 255, 255, 0.36);
-
-  --color-canvas: #191919;
-  --color-surface-1: #202020;
-  --color-surface-2: #2a2a2a;
-  --color-surface-3: #2a2a2a;
-  --color-surface-4: #303030;
-
-  --color-hairline: rgba(255, 255, 255, 0.09);
-  --color-hairline-strong: rgba(255, 255, 255, 0.16);
-  --color-hairline-tertiary: rgba(255, 255, 255, 0.05);
-
-  --color-inverse-canvas: #ffffff;
-  --color-inverse-surface-1: #ececec;
-  --color-inverse-surface-2: #e0e0e0;
-  --color-inverse-ink: #000000;
-
-  --color-semantic-success: #4cc264;
-  --color-semantic-danger: #ff6369;
-  --color-semantic-overlay: rgba(0, 0, 0, 0.72);
-
-  --color-tag-work: #62aef0;
-  --color-tag-college: #d6b6f6;
-  --color-tag-personal: #4cc264;
-  --color-tag-finance: #ff8a3d;
-  --color-tag-shopping: #ff64c8;
-  --color-tag-travel: #45bdb8;
-  --color-tag-security: #ff6369;
-  --color-tag-bills: #b98a5e;
-  --color-tag-promotions: #9a958f;
-  --color-tag-interviews: #b48cf0;
+  --font-display: "Avenir Next", "Segoe UI", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
 .dark {
-  color-scheme: dark;
-}
+  --color-paper: #131417;
+  --color-paper-2: #1B1D22;
+  --color-surface: #1C1E24;
+  --color-ink: #ECEBE5;
+  --color-ink-2: #A9AAB2;
+  --color-ink-3: #797B84;
+  --color-line: #2A2C33;
 
-.dark .shadow-elevation-1 {
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.35),
-    0 4px 12px rgba(0, 0, 0, 0.28);
-}
-.dark .shadow-elevation-2 {
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.45),
-    0 12px 32px rgba(0, 0, 0, 0.4);
-}
+  --color-amber: #E3A857;
+  --color-amber-soft: #3A2E1A;
+  --color-amber-dim: #F0C089;
 
-@theme inline {
-  --color-primary: var(--color-primary);
-  --color-on-primary: var(--color-on-primary);
-  --color-primary-hover: var(--color-primary-hover);
-  --color-primary-focus: var(--color-primary-focus);
-  --color-brand-secure: var(--color-brand-secure);
+  --color-violet: #8E7CFF;
+  --color-violet-soft: #2A2350;
+  --color-violet-dim: #C3B8FF;
 
-  --color-secondary: var(--color-secondary);
-  --color-on-secondary: var(--color-on-secondary);
+  --color-green: #4FBE8B;
+  --color-green-soft: #16332A;
 
-  --color-ink: var(--color-ink);
-  --color-ink-muted: var(--color-ink-muted);
-  --color-ink-subtle: var(--color-ink-subtle);
-  --color-ink-tertiary: var(--color-ink-tertiary);
-
-  --color-canvas: var(--color-canvas);
-  --color-surface-1: var(--color-surface-1);
-  --color-surface-2: var(--color-surface-2);
-  --color-surface-3: var(--color-surface-3);
-  --color-surface-4: var(--color-surface-4);
-
-  --color-hairline: var(--color-hairline);
-  --color-hairline-strong: var(--color-hairline-strong);
-  --color-hairline-tertiary: var(--color-hairline-tertiary);
-
-  --color-inverse-canvas: var(--color-inverse-canvas);
-  --color-inverse-surface-1: var(--color-inverse-surface-1);
-  --color-inverse-surface-2: var(--color-inverse-surface-2);
-  --color-inverse-ink: var(--color-inverse-ink);
-
-  --color-semantic-success: var(--color-semantic-success);
-  --color-semantic-danger: var(--color-semantic-danger);
-
-  --color-tag-work: var(--color-tag-work);
-  --color-tag-college: var(--color-tag-college);
-  --color-tag-personal: var(--color-tag-personal);
-  --color-tag-finance: var(--color-tag-finance);
-  --color-tag-shopping: var(--color-tag-shopping);
-  --color-tag-travel: var(--color-tag-travel);
-  --color-tag-security: var(--color-tag-security);
-  --color-tag-bills: var(--color-tag-bills);
-  --color-tag-promotions: var(--color-tag-promotions);
-  --color-tag-interviews: var(--color-tag-interviews);
-
-  --font-display: var(--font-display);
-  --font-text: var(--font-text);
-  --font-mono: var(--font-mono);
-
-  --radius-xs: var(--radius-xs);
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
-  --radius-xl: var(--radius-xl);
-  --radius-2xl: var(--radius-xxl);
-  --radius-pill: var(--radius-pill);
-}
-
-* {
-  border-color: var(--color-hairline);
-}
-
-html {
-  color-scheme: light;
+  --color-security-soft: #3A1E20;
+  --color-security-dim: #F2A8A8;
 }
 
 body {
-  background: var(--color-canvas);
+  background: var(--color-paper);
   color: var(--color-ink);
-  font-family: var(--font-text);
-  font-feature-settings: "lnum" 1, "locl" 1;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  font-family: var(--font-body);
 }
 
 ::selection {
-  background: var(--color-primary);
-  color: var(--color-on-primary);
+  background: var(--color-violet);
+  color: white;
 }
 
-:focus-visible {
-  outline: 2px solid var(--color-primary-focus);
-  outline-offset: 2px;
+.signal-bar {
+  background: linear-gradient(90deg, var(--color-violet) 0%, var(--color-amber) 100%);
 }
 
-/* Typography scale, matching the Notion spec's typography tokens */
-.text-display-xl {
-  font-family: var(--font-display);
-  font-size: 64px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -2.125px;
-}
-.text-display-lg {
-  font-family: var(--font-display);
-  font-size: 54px;
-  font-weight: 700;
-  line-height: 1.04;
-  letter-spacing: -1.875px;
-}
-.text-display-md {
-  font-family: var(--font-display);
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -1px;
-}
-.text-headline {
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 1.23;
-  letter-spacing: -0.625px;
-}
-.text-card-title {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1.27;
-  letter-spacing: -0.25px;
-}
-.text-subhead {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: -0.125px;
-}
-.text-body-lg {
-  font-family: var(--font-text);
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0;
-}
-.text-body {
-  font-family: var(--font-text);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0;
-}
-.text-body-sm {
-  font-family: var(--font-text);
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.33;
-}
-.text-caption {
-  font-family: var(--font-text);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.43;
-}
-.text-button {
-  font-family: var(--font-text);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5;
-}
-.text-eyebrow {
-  font-family: var(--font-text);
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.33;
-  letter-spacing: 0.125px;
-}
-.text-mono {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-@media (max-width: 480px) {
-  .text-display-xl {
-    font-size: 34px;
-    letter-spacing: -1.1px;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
-  .text-display-lg {
-    font-size: 30px;
-    letter-spacing: -1px;
-  }
-  .text-display-md {
-    font-size: 26px;
-    letter-spacing: -0.6px;
-  }
-}
-
-/* Notion's "barely-there" elevation: many near-transparent shadow layers
-   rather than a single hard cast. */
-.shadow-elevation-1 {
-  box-shadow:
-    0 0.175px 1.041px rgba(0, 0, 0, 0.01),
-    0 0.8px 2.925px rgba(0, 0, 0, 0.02),
-    0 2.025px 7.847px rgba(0, 0, 0, 0.027),
-    0 4px 18px rgba(0, 0, 0, 0.04);
-}
-.shadow-elevation-2 {
-  box-shadow:
-    0 0.335px 1.996px rgba(0, 0, 0, 0.014),
-    0 1.114px 6.646px rgba(0, 0, 0, 0.021),
-    0 2.905px 17.316px rgba(0, 0, 0, 0.026),
-    0 6.945px 41.397px rgba(0, 0, 0, 0.033),
-    0 23px 52px rgba(0, 0, 0, 0.05);
 }

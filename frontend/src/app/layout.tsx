@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import { Providers } from "@/providers";
 
 export const metadata: Metadata = {
-  title: "PlusEmail — Your inbox, understood",
-  description:
-    "PlusEmail reads, summarizes, and organizes your Gmail inbox so you can ask it questions instead of scrolling through them.",
+  title: "MailMind — Your inbox, distilled",
+  description: "An AI assistant that reads your inbox so you don't have to.",
 };
 
 export default function RootLayout({
@@ -15,10 +14,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </ThemeProvider>
+      <body className="antialiased font-body">
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
